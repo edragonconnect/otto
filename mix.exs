@@ -26,7 +26,7 @@ defmodule Otto.MixProject do
   def package do
     [
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/edragonconnect/ex_aliyun_sls"}
+      links: %{"Github" => "https://github.com/edragonconnect/otto"}
     ]
   end
 

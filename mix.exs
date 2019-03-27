@@ -9,9 +9,10 @@ defmodule Otto.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       name: "Otto",
-      docs: [
-        extras: ["README.md"]
-      ]
+      docs: [extras: ["README.md"]],
+      description: "A simple wrapper for Aliyun TableStore, based on ex_aliyun_ots",
+      source_url: "https://github.com/edragonconnect/otto",
+      package: package()
     ]
   end
 
@@ -19,6 +20,13 @@ defmodule Otto.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  def package do
+    [
+      licenses: ["MIT"],
+      links: %{"Github" => "https://github.com/edragonconnect/ex_aliyun_sls"}
     ]
   end
 

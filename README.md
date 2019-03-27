@@ -34,7 +34,7 @@ config :ex_aliyun_ots, Instance1,
   access_key_id: "YOUR-ACCESS-KEY-ID",
   access_key_secret: "YOUR-ACCESS-KEY-SECRET"
 
-config :ex_aliyun_ots, Instance1,
+config :ex_aliyun_ots, Instance2,
   name: "instance2_name",
   endpoint: "YOUR-OTS-ENDPOINT",
   access_key_id: "YOUR-ACCESS-KEY-ID",

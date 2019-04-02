@@ -30,6 +30,7 @@ defmodule OttoTest.QueryNoEncryptionTest do
 
   test "test no encryption crud" do
     Otto.Table.create_table(QueryNoEncryptionTest)
+
     attrs = %{
       pk1: "pk1",
       pk2: 2,

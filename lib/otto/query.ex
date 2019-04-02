@@ -38,8 +38,15 @@ defmodule Otto.Query do
   * batch_write
   * search
   * search_iterate_all
+  * start_local_transaction
+  * commit_transaction
+  * abort_transaction
   ...
 
+  For local transaction, it supports:
+  - Read: `get_row`, `get_range`
+  - Write: `put_row`, `update_row`, `delete_row`, `batch_write`
+  A transaction's max ttl is 60s.
   """
 
   @doc """
@@ -292,6 +299,42 @@ defmodule Otto.Query do
     end
   end
 
+  @doc """
+  `start_local_transaction` is use to create a local transaction.
+  It accepts a module name, a partition key's value, and some options.
+  A partition key is the first primary key of your table.
+  """
+  def start_local_transaction(module, partition_key_value, opts \\ []) do
+    ots = module.__ots__()
+    [partition | _] = ots[:primary]
+    partition_key = {to_string(partition), partition_key_value}
+
+    case execute_start_local_transaction(ots[:instance], ots[:table], partition_key, opts) do
+      {:ok, %{transaction_id: transaction_id}} -> {:ok, transaction_id}
+      error -> error
+    end
+  end
+
+  @doc """
+  `abort_transaction` can abort a started local transaction.
+  It accepts a module name, a transaction id and opts.
+  You can get a transaction id when you finished `start_local_transaction`.
+  """
+  def abort_transaction(module, transaction_id, opts \\ []) do
+    ots = module.__ots__()
+    execute_abort_transaction(ots[:instance], transaction_id, opts)
+  end
+
+  @doc """
+  `commit_transaction` will commit transaction with the given id.
+  It accepts a module name, a transaction_id and opts.
+  You can get a transaction id when you finished `start_local_transaction`.
+  """
+  def commit_transaction(module, transaction_id, opts \\ []) do
+    ots = module.__ots__()
+    execute_commit_transaction(ots[:instance], transaction_id, opts)
+  end
+
   # Batch apis
 
   @doc """
@@ -311,6 +354,7 @@ defmodule Otto.Query do
   def batch_get(requests, opts \\ []) when is_list(requests) do
     module = requests |> List.first() |> Tuple.to_list() |> List.first()
     instance = module.__ots__()[:instance]
+
     {batch_meta, requests} =
       requests
       |> Enum.reduce({%{}, []}, fn {module, table, request}, {batch_meta_acc, requests_acc} ->
@@ -395,6 +439,7 @@ defmodule Otto.Query do
   def batch_write(requests, opts \\ []) when is_list(requests) do
     module = requests |> List.first() |> Tuple.to_list() |> List.first()
     instance = module.__ots__()[:instance]
+
     write_requests =
       requests
       |> Enum.map(fn {module, request_list} ->

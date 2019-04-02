@@ -24,7 +24,7 @@ defmodule Otto.Table do
   #### required fields
 
   - `table` - The ots table name, it should be unique in one instance.
-  - `primary` - Primary keys list, by order, up to 4.
+  - `primary` - Primary keys list, by order, up to 4. The first key is the partition key.
 
   #### optional fields
 

@@ -28,7 +28,7 @@ defmodule SearchTest do
     field(:player, :string)
   end
 
-  #test "origin search test" do
+  # test "origin search test" do
   #  alias ExAliyunOts.Var
   #  alias ExAliyunOts.Var.Search
   #  alias ExAliyunOts.Const.PKType
@@ -123,7 +123,7 @@ defmodule SearchTest do
   #  }
 
   #  assert {:ok, _} = ExAliyunOts.Client.search(instance, search_request_match)
-  #end
+  # end
 
   test "otto create index" do
     # assert {:ok, _} = Otto.Table.create_index(SearchTest, :index1)

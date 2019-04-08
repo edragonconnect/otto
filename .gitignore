@@ -23,3 +23,5 @@ erl_crash.dump
 otto-*.tar
 
 /config/*.secret.exs
+
+.DS_Store

@@ -1,5 +1,11 @@
 # Otto
 
+## NOTICE:
+
+This project is no longer maintained, if you are seeking for a replacement of this Ecto adapter, we would like to recommend [`ecto_tablestore`](https://hex.pm/packages/ecto_tablestore) for your reference.
+
+## Introduce
+
 Otto is an easy-to-use wrapper for accessing [Aliyun Table Store(OTS)](https://www.aliyun.com/product/ots), a distributed NoSQL database. It is based on package [`ex_aliyun_ots`](https://github.com/xinz/ex_aliyun_ots). It works well with `ecto`, which means you can define struct and field types in ecto, then otto will handle it.
 
 Using otto, you can:
